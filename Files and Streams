@@ -1,0 +1,38 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class GroceryListToFile {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the name of the file to store the shopping list: ");
+        String fileName = scanner.nextLine();
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            String item;
+
+            System.out.println("Enter grocery items one by one. Type 'done' to finish:");
+
+            while (true) {
+                System.out.print("> ");
+                item = scanner.nextLine();
+
+                if (item.equalsIgnoreCase("done")) {
+                    break;
+                }
+
+                writer.write(item);
+                writer.newLine();
+            }
+
+            System.out.println("Grocery list saved to " + fileName);
+
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file: " + e.getMessage());
+        }
+
+        scanner.close();
+    }
+}
